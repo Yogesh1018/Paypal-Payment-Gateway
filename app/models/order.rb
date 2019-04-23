@@ -25,5 +25,12 @@ class Order < ApplicationRecord
     response.success?
   end
 
- 
+  def validate_card
+    if express_token.blank? && !credit_card.valid?
+      credit_card.errors.full_messages.each do |message|
+        errors.add(:base, message)
+      end
+    end
+  end
+
 end

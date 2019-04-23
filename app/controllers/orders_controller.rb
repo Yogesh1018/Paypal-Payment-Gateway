@@ -14,25 +14,27 @@ class OrdersController < ApplicationController
     @order = Order.new(:express_token => params[:token])
   end
 
+  def show
+    @order = Order.find(params[:id])
+    @response= @order.transactions.last.message
+  end
+
   # POST /orders
   # POST /orders.json
-  def create  
+  def create
     @order = Order.new(order_params)
     @order.ip_address = request.remote_ip
     @order.amount = 800
     if @order.save
-      if @order.purchase
-        render :action => "success"
-      else
-        render :action => "failure"
-      end
+      @order.purchase
+      redirect_to order_path(@order)
     else
       render :action => 'new'
     end
   end
 
   def order_params
-    params.require(:order).permit(:ip_address, :first_name, :last_name, :card_type, :card_expires_on, :card_number, :card_verification)
+    params.require(:order).permit(:ip_address, :first_name, :last_name, :card_type, :card_expires_on, :card_number, :card_verification, :express_token)
   end
 
 end

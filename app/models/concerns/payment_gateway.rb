@@ -34,14 +34,6 @@ module PaymentGateway
       :payer_id => express_payer_id
     }
   end
-
-  def validate_card
-    if express_token.blank? && !credit_card.valid?
-      credit_card.errors.full_messages.each do |message|
-        errors.add(:base, message)
-      end
-    end
-  end
   
   def credit_card
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
