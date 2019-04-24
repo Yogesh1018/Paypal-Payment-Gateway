@@ -1,0 +1,9 @@
+<h1>Place Your Orders</h1>
+<div class="row">
+	<div class="col-md-3"><h1>Title</h1></div>
+	<div class="col-md-3"><h1>Author</h1></div>
+	<div class="col-md-3"><h1>Amount</h1></div>
+</div>
+<div class="book-list">
+	<%= render partial: 'book_list', collection: @books, as: :book %>
+</div>

@@ -9,7 +9,11 @@ module PaymentGateway
     if express_token.blank?
       STANDARD_GATEWAY.purchase(price_in_cents, credit_card, standard_purchase_options)
     else
-      EXPRESS_GATEWAY.purchase(price_in_cents, express_purchase_options)
+      if recuring
+        make_recurring
+      else
+        EXPRESS_GATEWAY.purchase(price_in_cents, express_purchase_options)
+      end
     end
   end
 

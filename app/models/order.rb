@@ -2,8 +2,11 @@ class Order < ApplicationRecord
 
   require "active_merchant/billing/rails"
   include PaymentGateway
+  include PaypalRecurringPayment
 
   has_many :transactions, :class_name => "OrderTransaction"
+  belongs_to :book
+  belongs_to :plan, optional: true
 
   attr_accessor :card_number, :card_verification
 
@@ -11,7 +14,7 @@ class Order < ApplicationRecord
 
   def express_token=(token)
     write_attribute(:express_token, token)
-    if new_record? && !token.blank?
+    if new_record? && token.present?
       details = EXPRESS_GATEWAY.details_for(token)
       self.express_payer_id = details.payer_id
       self.first_name = details.params["first_name"]
@@ -32,5 +35,4 @@ class Order < ApplicationRecord
       end
     end
   end
-
 end

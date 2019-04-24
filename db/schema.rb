@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_063139) do
+ActiveRecord::Schema.define(version: 2019_04_24_094150) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 2019_04_23_063139) do
     t.integer "amount"
     t.string "express_token"
     t.string "express_payer_id"
+    t.integer "plan_id"
+    t.integer "book_id"
+    t.boolean "recuring", default: false
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.integer "amount"
+    t.string "frequency"
+    t.integer "cycles"
+    t.string "period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

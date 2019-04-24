@@ -1,4 +1,6 @@
-<%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_new_order_path %>
-<div>
-	<%= link_to "Checkout", new_order_path %>
-</div>
+<h1>Choose EMI options</h1>
+<%= form_with url: new_order_path, method: :get, local: true do |f| %>
+	<%= f.hidden_field :book_id, value: @book.id %>
+	<%= render partial: 'plan_list', collection: @plans, as: :plan %>
+	<%= f.submit "checkout" %>
+<% end %>
