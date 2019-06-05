@@ -1,18 +1,22 @@
 module PaymentGateway
   extend ActiveSupport::Concern
 
-  def price_in_cents
+  def price_in_cents(amount)
     (amount*100).round
   end   
 
   def process_purchase
     if express_token.blank?
-      STANDARD_GATEWAY.purchase(price_in_cents, credit_card, standard_purchase_options)
+      if recuring
+        STANDARD_GATEWAY.recurring(price_in_cents(subscription_amount), credit_card, standard_purchase_options.merge(recurring_options))
+      else
+        STANDARD_GATEWAY.purchase(price_in_cents(price), credit_card, standard_purchase_options)
+      end
     else
       if recuring
         make_recurring
       else
-        EXPRESS_GATEWAY.purchase(price_in_cents, express_purchase_options)
+        EXPRESS_GATEWAY.purchase(price_in_cents(price), express_purchase_options)
       end
     end
   end
@@ -51,5 +55,14 @@ module PaymentGateway
     )
   end
 
-
+  def recurring_options
+    {
+      :description => book_title,
+      :start_date => Time.now, 
+      :period => "Month" ,
+      :frequency => 1,
+      :amount => price_in_cents(price),
+      :currency => 'USD'
+    }
+  end
 end

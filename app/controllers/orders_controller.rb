@@ -3,9 +3,12 @@ class OrdersController < ApplicationController
   before_action :find_book, only: [:index, :new, :recuring]
 
   def express
-    response = EXPRESS_GATEWAY.setup_purchase(800,
+    # plan = Plan.find(params[:plan_id]) if params[:plan_id]
+    # order = plan.orders.build
+    # order.book = @book
+    response = EXPRESS_GATEWAY.setup_purchase(@book.price,
       :ip                => request.remote_ip,
-      :return_url        => new_order_url,
+      :return_url        => new_order_url(:plan_id => params[:plan_id], book_id: params[:book_id]),
       :cancel_return_url => orders_url
     )
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
@@ -16,7 +19,7 @@ class OrdersController < ApplicationController
     order = plan.orders.build
     order.book = @book
     redirect_to order.checkout_url(
-      return_url: new_order_url(:plan_id => plan.id, book_id: @book.id),
+      return_url: new_order_url(:plan_id => params[:plan_id], book_id: params[:book_id]),
       cancel_url: root_url
     )
   end
@@ -30,7 +33,7 @@ class OrdersController < ApplicationController
     @order.amount = @book.price
     if params[:plan_id]
       @order.recuring = true
-      @plan = Plan.find(params[:plan_id])
+      @plan = Plan.find(params[:plan_id ])
     end
   end
 

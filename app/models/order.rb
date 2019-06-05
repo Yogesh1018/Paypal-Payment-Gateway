@@ -8,6 +8,11 @@ class Order < ApplicationRecord
   belongs_to :book
   belongs_to :plan, optional: true
 
+  delegate :price, :to => :book, :allow_nil => true
+  delegate :title, :to => :book, :allow_nil => true, :prefix => true
+  delegate :period, :to => :plan, :allow_nil => true, :prefix => "subscription"
+  delegate :amount, :to => :plan, :allow_nil => true, :prefix => "subscription"
+
   attr_accessor :card_number, :card_verification
 
   validate :validate_card
@@ -24,7 +29,7 @@ class Order < ApplicationRecord
   
   def purchase
     response = process_purchase
-    transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
+    transactions.create!(:action => "purchase", :amount => price_in_cents(price), :response => response)
     response.success?
   end
 
