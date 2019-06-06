@@ -13,7 +13,7 @@ class Booking < ApplicationRecord
   attr_accessor :card_number, :card_verification
 
   def purchase
-    response = BrainTreeGatyeway.purchase(price_in_cents(price), credit_card)
+    response = BraintreeGateway.purchase(price_in_cents(price), credit_card)
   end
 
   def validate_card

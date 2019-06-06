@@ -15,9 +15,9 @@ class BookingsController < ApplicationController
         if @booking.update(success: true, message: response.message)
           flash[:success] = "Ticket Booked"
           redirect_to bookings_path(id: @booking.id)and return 
-
         else
-          flash[:danger] = "Can't Process! Try again later"
+          flash[:danger] = "Can't Process! Your money is refunded after some time"
+          refund_payment(response)
         end
       else
         flash[:danger] = @booking.errors.full_messages.join(",")
@@ -35,6 +35,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def refund_payment(response)
+    BrainTreeGatyeway.refund(@booking.price, response.authorization)
+  end
 
   def find_ticket
     @ticket = MovieTicket.find(params[:ticket_id])
