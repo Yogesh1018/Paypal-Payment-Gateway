@@ -68,6 +68,11 @@ Rails.application.configure do
     }
     ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+    
+    ::BraintreeGateway = ActiveMerchant::Billing::BraintreeGateway.new(
+      :merchant_id => 'nqdd44vtdrtp8cnq',
+      :public_key  => 'vd85rpcjswqswvsp',
+      :private_key => 'f33612ab40c309343135222de9f69f2e'
+    )
   end
-
 end

@@ -14,3 +14,9 @@ require 'faker'
 Plan.create!(amount: 100, frequency: 1, period: "monthly")
 Plan.create!(amount: 200, frequency: 1, period: "monthly")
 Plan.create!(amount: 300, frequency: 1, period: "monthly")
+
+10.times do
+  price = Faker::Number.decimal(3,2)
+  title = Faker::Movie.quote
+  MovieTicket.create(price: price, title: title)
+end
