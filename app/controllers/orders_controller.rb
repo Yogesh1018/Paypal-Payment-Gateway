@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :find_book, only: [:index, :new, :recuring]
+  before_action :find_book, only: [:index, :new, :recuring, :express]
 
   def express
     # plan = Plan.find(params[:plan_id]) if params[:plan_id]

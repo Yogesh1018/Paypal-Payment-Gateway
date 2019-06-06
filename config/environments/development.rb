@@ -62,9 +62,9 @@ Rails.application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
     paypal_options = {
-      :login => "yogesh.raghuvanshi_api1.gemsessence.com",
-      :password => "DQDPZ63UFRMNNGFE",
-      :signature => "AbBIww12EQnvrHwYmd1wb98zYz53A9BKHegfbdhmEKj1gHAylNwp.2vJ"
+      :login => ENV["paypal_login_id"],
+      :password => ENV["paypal_password"],
+      :signature => ENV["paypal_signature"]
     }
     ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
