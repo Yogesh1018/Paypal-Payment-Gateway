@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_121500) do
     t.string "card_type"
     t.boolean "success"
     t.text "message"
+    t.date "card_expires_on"
     t.index ["movie_ticket_id"], name: "index_bookings_on_movie_ticket_id"
   end
 

@@ -7,14 +7,31 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @ticket = MovieTicket.find(params[:booking][:movie_ticket_id])
     @booking = Booking.new(permit_params)
     if @booking.save
-      redirect_to ticket_path  
+      response = @booking.purchase
+      if response.success?
+        if @booking.update(success: true, message: response.message)
+          flash[:success] = "Ticket Booked"
+          redirect_to bookings_path(id: @booking.id)and return 
+
+        else
+          flash[:danger] = "Can't Process! Try again later"
+        end
+      else
+        flash[:danger] = @booking.errors.full_messages.join(",")
+      end
+      redirect_to ticket_path and return   
     else
       flash.now[:danger] = @booking.errors.full_messages.join(",")
-      @ticket = MovieTicket.find(params[:booking][:movie_ticket_id])
       render 'new'
     end
+  end
+
+
+  def show
+    @booking = Booking.find(params[:id])
   end
 
   private
@@ -24,6 +41,6 @@ class BookingsController < ApplicationController
   end
 
   def permit_params
-    params.require(:booking).permit(:first_name, :last_name, :card_type, :movie_ticket_id)
+    params.require(:booking).permit(:first_name, :last_name, :card_type, :card_expires_on, :card_number, :card_verification, :movie_ticket_id)
   end
 end
