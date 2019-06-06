@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_082650) do
+ActiveRecord::Schema.define(version: 2019_06_06_121500) do
+
+  create_table "bookers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "contact_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "movie_ticket_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "card_type"
+    t.boolean "success"
+    t.text "message"
     t.index ["movie_ticket_id"], name: "index_bookings_on_movie_ticket_id"
   end
 
@@ -51,7 +64,6 @@ ActiveRecord::Schema.define(version: 2019_06_06_082650) do
     t.string "first_name"
     t.string "last_name"
     t.string "card_type"
-    t.date "card_expires_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "amount"
@@ -60,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_082650) do
     t.integer "plan_id"
     t.integer "book_id"
     t.boolean "recuring", default: false
+    t.date "card_expires_on"
   end
 
   create_table "plans", force: :cascade do |t|

@@ -13,6 +13,5 @@ Rails.application.routes.draw do
 
   get '/tickets', :to => "movie_ticket#index", as: :ticket
 
-  resource :booking, only: [:show, :create, :new]
-  
+  resource :bookings, only: [:show, :create, :new]
 end
