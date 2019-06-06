@@ -25,16 +25,14 @@ https://www.paypal.com/signin?returnUri=https%3A%2F%2Fdeveloper.paypal.com%2Fdev
 
 11. Go the Profile < Api Credentials
 
-12. Replace the login value inside paypal options in development.rb with Username of Api Credentials
+12. Replace the paypal_login_id value in application.yml with Username of Api Credentials, create an application.yml file if not present.
 
-13. Replace the password value inside paypal options in development.rb with Password of Api Credentials
+13. Replace the paypal_password value in application.yml with Password of Api Credentials
 
-14. Replace the signature value inside paypal options in development.rb with Signature of Api Credentials
+14. Replace the paypal_signature value in application.yml with Signature of Api Credentials
 
 15. Go to My Apps and credentials
 
 16. Click on Create App
 
 17. Create a new app with the merchant account selected as a sandbox business account.
-
-18. Go to config/initializer/paypal.rb and replace the username, password, signature with the paypal options username, passsword, signature inside development.rb
