@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'order/recuring', :to => "orders#recuring", as: :recuring_new_order 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "movie_ticket#index"
+  # root to: "movie_ticket#index"
+
+  get '/tickets', :to => "movie_ticket#index", as: :ticket
 
   resource :booking, only: [:show, :create, :new]
   
