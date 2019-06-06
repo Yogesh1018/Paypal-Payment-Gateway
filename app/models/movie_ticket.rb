@@ -1,0 +1,2 @@
+class MovieTicket < ApplicationRecord
+end
