@@ -58,4 +58,14 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+
+    ::BraintreeGateway = ActiveMerchant::Billing::BraintreeGateway.new(
+      :merchant_id => 'nqdd44vtdrtp8cnq',
+      :public_key  => 'vd85rpcjswqswvsp',
+      :private_key => 'f33612ab40c309343135222de9f69f2e'
+    )
+  end
 end
