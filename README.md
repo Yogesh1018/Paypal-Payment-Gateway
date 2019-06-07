@@ -36,3 +36,29 @@ https://www.paypal.com/signin?returnUri=https%3A%2F%2Fdeveloper.paypal.com%2Fdev
 16. Click on Create App
 
 17. Create a new app with the merchant account selected as a sandbox business account.
+
+18. Use sandbox buyer account credentials when purchasing.
+
+19. You can now test it.
+
+
+Integration of Braintree payment gateway -
+
+Development - 
+
+1. Create an braintree sandbox account by going through the link
+https://www.braintreepayments.com/sandbox
+
+2. Login to sandbox account you have created
+
+3. Go to Setting < API
+
+4. under Api keys section click on view link on private key.
+
+5. Replace the braintree_merchant_id value in application.yml with Merchant ID of Api Credentials, create an application.yml file if not present.
+
+6. Replace the braintree_public_key value in application.yml with Public Key of Api Credentials
+
+7. Replace the braintree_private_key value in application.yml with Private Key of Api Credentials
+
+8. Now you are ready to test.

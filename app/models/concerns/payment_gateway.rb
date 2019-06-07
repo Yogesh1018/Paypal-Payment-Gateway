@@ -62,6 +62,7 @@ module PaymentGateway
       :period => "Month" ,
       :frequency => 1,
       :amount => price_in_cents(price),
+      :total_billing_cycles => get_cycle,
       :currency => 'USD'
     }
   end

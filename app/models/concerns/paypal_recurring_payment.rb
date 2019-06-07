@@ -15,7 +15,14 @@ module PaypalRecurringPayment
   end
   
   def get_cycle
-    amount/plan.amount
+    if self.price
+      cycle = self.price/self.subscription_amount
+      if (self.price % self.subscription_amount) == 0
+        cycle
+      else
+        cycle + 1
+      end
+    end
   end
 
 private
@@ -24,8 +31,8 @@ private
     options = options.reverse_merge(
       token: self.express_token,
       payer_id: self.express_payer_id,
-      description: self.book.title,
-      amount: self.book.price,
+      description: self.book_title,
+      amount: self.price, 
       currency: "USD"
     )
     response = PayPal::Recurring.new(options).send(action)
