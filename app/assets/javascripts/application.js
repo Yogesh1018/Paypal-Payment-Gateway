@@ -16,3 +16,4 @@
 //= require popper
 //= require bootstrap
 //= require turbolinks
+//= require custom_script.js.coffee

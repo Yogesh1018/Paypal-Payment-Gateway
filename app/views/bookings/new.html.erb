@@ -1,70 +1,11 @@
-<div class="row mt-3">
+<div class="row">
   <div class="col-md-2"></div>
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-header text-center">
-        Booking
-      </div>
-      <div class="card-body">
-        <%= form_for @booking do |f| %>
-          <%= f.hidden_field :movie_ticket_id, value: @ticket.id %>
-
-          <div class="form-group row">
-            <%= f.label :first_name, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.text_field :first_name, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :last_name, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.text_field :last_name, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :card_type, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.select(:card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], {}, { :class => 'form-control' }) %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :card_number, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.text_field :card_number, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :amount, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.text_field :amount, value: @ticket.price,disabled: true, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :card_verification, "Card Verification Value (CVV)", class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-9">
-              <%= f.text_field :card_verification, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <%= f.label :card_expires_on, class: "col-sm-3 col-form-label" %>
-            <div class="col-sm-6 d-flex">
-              <%= f.date_select :card_expires_on, {:discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true}, {:class => "form-control ml-2"} %>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-sm-6">
-              <%= f.submit "Complete", class: "btn btn-primary" %>
-            </div>
-          </div>
-        <% end %>  
-      </div>  
-    </div>
+  <div class=" col-md-8 form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns">
+    <h2 class="mbs">New Transaction</h2>
+    <%= form_for @booking do |f| %>
+      <p>Please enter your payment details:</p>
+      <div id="dropin"></div>
+      <%=f.submit "Pay", class: "button mt1" %>
+    <%end%>
   </div>
 </div>

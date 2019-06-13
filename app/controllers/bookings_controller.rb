@@ -3,6 +3,7 @@ class BookingsController < ApplicationController
   before_action :find_ticket, only: [:new]
 
   def new
+    gon.client_token = Gateway.client_token.generate
     @booking = Booking.new
   end
 
